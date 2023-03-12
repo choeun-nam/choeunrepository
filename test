@@ -1,0 +1,24 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      float x,y;
+void setup(){
+  size(600,400);
+  x = 300;
+  y = 200;
+  kyunghee();
+}
+void kyunghee(){
+  circle(x,y,200);
+  x = x - 40;
+  y = y - 20;
+  circle(x,y,30);
+  fill(0,0,0);
+  circle(x,y,10);
+  x += 80; 
+  fill(255,255,255);
+  circle(x,y,30);
+  fill(0,0,0);
+  circle(x,y,10);
+  x = x-40;
+  y = y+50;
+  ellipse(x,y,60,20);
+  
+}
