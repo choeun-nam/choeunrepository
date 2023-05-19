@@ -1,0 +1,169 @@
+class happy {
+  happy(float _x, float _y, float _size, float _vx, float _vy) {
+    x = _x;
+    y = _y;
+    size = _size;
+    vx = _vx;
+    vy = _vy;
+  }
+  float x, y, size, vx, vy;
+  
+  void random_move() {
+    x += vx;
+    y += vy;
+    
+    if (x < 0 || x > width) {
+      vx = -vx;
+    }
+    if (y < 0 || y > height) vy = -vy;
+  }
+  
+  void show() {
+    fill(255,0,255);
+    circle(x, y, size);
+    fill(0,0,0);
+    circle(x-20,y-20,10);
+    fill(0,0,0);
+    circle(x-20+40,y-20,10);
+    circle(x-20+40-20,y-20+30,20);
+  }
+}
+class robot{
+  robot(float a,float b,float c){
+    x = a;
+    y = b;
+    s = c;
+    vx = random(5,10);
+    vy = random(1,3);
+  }
+  float s, x, y, vx, vy;
+  void update(){
+   x += vx;
+   y += vy;
+   if(x<0 || x>width) vx = - vx;
+   if(y<0 || y>height) vy = - vy;
+  }
+  void keyboard(){
+    if(keyPressed){
+      if(key == 'w'){
+        if(y<=0) y+=0;
+        else y-=5;}
+      else if(key == 's'){
+        if(y>=height) y-=0;
+        else y+=5;}
+        else if(key == 'a'){
+        if(x<=0) x-=0;
+        else x-=5;}
+       else if(key == 'd'){
+        if(x>=width) x+=0;
+        else x+=5;}
+  }
+  }
+  void robotShow(){
+  //face
+  fill(0,255,255);
+  rect(x-100*s,y-50*s,200*s,100*s);
+  //eyes
+  fill(255,255,255);
+  circle(x-50*s,y-25*s,40*s);
+  circle(x+50*s,y-25*s,40*s);
+  fill(0,0,0);
+  circle(x-50*s,y-25*s,30*s);
+  circle(x+50*s,y-25*s,30*s);
+  //mouth
+  fill(255,255,255);
+  rect(x-50*s,y+25-2.5*s,100*s,5*s);
+  //neck
+  rect(x-40*s,y+50*s,80*s,5*s);
+  //body
+  fill(0,255,0);
+  square(x-75*s,y+55*s,150*s);
+  //foot
+  fill(0,0,0);
+  circle(x-40*s,y+230*s,50*s);
+  circle(x+40*s,y+230*s,50*s);
+  //leg
+  fill(0,0,0);
+  circle(x-100*s,y+100*s,50*s);
+  circle(x+100*s,y+100*s,50*s);
+}
+}
+class Ryan {
+  float x, y, z;
+  float vx, vy;
+  Ryan(float a, float b, float _size, float _vx, float _vy) {
+    x = a;
+    y = b;
+    z = _size;
+    vx = _vx;
+    vy = _vy;
+  }
+  
+  void move1() {
+    x += vx;
+    y += vy;
+    
+    if(x > width || x < 0) {
+      vx = -vx;  
+    }
+    if(y > height || y < 0) {
+      vy = -vy;  
+    }
+  }
+  
+  void move2() {
+    x = mouseX;
+    y = mouseY;
+  }
+  
+  void display() {
+    fill(255,204,0);
+    circle(x+z*0.5, y-z*0.7, 30);
+    circle(x-z*0.5, y-z*0.7, 30);
+    circle(x, y, 150);
+    fill(0);
+    strokeWeight(5);
+    line(x+z*0.2, y-z*0.3, x+z*0.5, y-z*0.3);
+    line(x-z*0.2, y-z*0.3, x-z*0.5, y-z*0.3);
+    strokeWeight(10);
+    point(x-z*0.3, y-z*0.1);
+    point(x+z*0.3, y-z*0.1);
+    strokeWeight(0);
+    fill(255);
+    circle(x-z*0.1, y+z*0.2, 25);
+    circle(x+z*0.1, y+z*0.2, 25);
+    fill(0);
+    circle(x, y+z*0.1, 10);
+  }
+}
+robot [] aa;
+Ryan [] bb;
+happy [] cc;
+
+void setup(){
+  size(1400,800);
+  bb = new Ryan[2];
+  bb[0] = new Ryan(250,150,100,1,2);
+  bb[1] = new Ryan(100,200,100,-1,1);
+  aa = new robot[2];
+  cc = new happy[2];
+  for (int i=0; i<2; i++) {
+    aa[i] = new robot(random(width),random(height), 0.5*i+0.5);
+    cc[i] = new happy(random(width),random(height), 100, 1, 2);
+  }
+}
+void draw(){
+  background(255);
+  aa[1].update();
+  aa[1].robotShow();
+  aa[0].keyboard();
+  aa[0].robotShow();
+  bb[1].move1();
+  bb[1].display();
+  bb[0].move2();
+  bb[0].display();
+  cc[0].random_move();
+  cc[1].random_move();
+  cc[0].show();
+  cc[1].show();
+  }
